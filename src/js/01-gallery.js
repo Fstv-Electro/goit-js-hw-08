@@ -6,19 +6,21 @@ const galleryDiv = document.querySelector('.gallery');
 
 // galleryDiv.addEventListener('click', onGalleryClick);
 
-const makeGalleryMarkup = galleryItems
-  .map(
-    item =>
-      `<a class="gallery__item href="${item.original}">
-    <img class="gallery__image" src="${item.preview}"
-    alt="${item.description}"
-    title="${item.description}"
-    /></a>`
-  )
-  .join('');
-
-galleryDiv.insertAdjacentHTML('beforeend', makeGalleryMarkup);
+function makeGalleryMarkup(galleryItems) {
+  const markup = galleryItems
+    .map(({ preview, original, description }) => {
+      return `<a class="gallery__item href="${original}">
+    <img class="gallery__image" src="${preview}"
+    alt="${description}"
+    title="${description}"
+    /></a>`;
+    })
+    .join('');
+  galleryDiv.innerHTML = markup;
+}
+makeGalleryMarkup(galleryItems);
 
 const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
   captionDelay: 250,
 });
