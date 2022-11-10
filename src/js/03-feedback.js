@@ -5,8 +5,6 @@ const localStorageKey = 'feedback-from-state';
 
 storageForm();
 
-formEl.addEventListener('input', throttle(onInput, 500));
-
 function onInput() {
   const formData = new FormData(formEl);
   let userForm = {};
@@ -14,13 +12,15 @@ function onInput() {
   localStorage.setItem(localStorageKey, JSON.stringify(userForm));
 }
 
+formEl.addEventListener('input', throttle(onInput, 500));
+
 function storageForm() {
   let parseForm = localStorage.getItem('localStorageKey');
   if (parseForm) {
-    parseForm = JSON.stringify(parseForm);
+    parseForm = JSON.parse(parseForm);
     console.log(parseForm);
     Object.entries(parseForm).forEach(([name, value]) => {
-      formEl.nextElementSibling[name].value = value;
+      formEl.elements[name].value = value;
     });
   }
 }
