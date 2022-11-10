@@ -5,9 +5,7 @@ const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
 const checkpoint = 'vimeo-videoplayer-current-time';
-const currentTime = localStorage.getItem(checkpoint)
-  ? localStorage.getItem(checkpoint)
-  : 0;
+const currentTime = localStorage.getItem(checkpoint) || 0;
 
 player.on('timeupdate', throttle(getCurrentTime, 1000));
 
